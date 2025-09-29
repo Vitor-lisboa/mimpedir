@@ -6,14 +6,14 @@ class TelaCadRestaurante extends StatelessWidget{
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: AppBar(title: const Text("Cadastro de Restaurante")),
+      appBar: AppBar(title: const Text("Editar Restaurante")),
       body: Padding(padding: const EdgeInsets.all(30),
         child: Column(
               mainAxisAlignment: MainAxisAlignment.center,
                   children: [
-                    Text("Informações do Restaurante"),
+                    Text("Restaurantes"),
                     SizedBox(height: 40),
-                    Text("Tipo de Comida: "),
+                    Text("Restaurantes Disponiveis: "),
                     DropdownButtonFormField(
                         items: [
                           DropdownMenuItem(value: "Japones", child: Text("Japonesa")),
