@@ -6,7 +6,7 @@ class TelaCadRestaurante extends StatelessWidget{
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: AppBar(title: const Text("Editar Restaurante")),
+      appBar: AppBar(title: const Text("Cadastrar Restaurante")),
       body: Padding(padding: const EdgeInsets.all(30),
         child: Column(
               mainAxisAlignment: MainAxisAlignment.center,

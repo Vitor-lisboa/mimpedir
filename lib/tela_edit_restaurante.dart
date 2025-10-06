@@ -6,7 +6,7 @@ class  TelaEditRestaurante extends StatelessWidget{
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: AppBar(title: const Text("Editar Informações")),
+      appBar: AppBar(title: const Text("Editar Restaurante")),
       body: Padding(padding: const EdgeInsets.all(30),
           child: Column(
             mainAxisAlignment: MainAxisAlignment.center,
