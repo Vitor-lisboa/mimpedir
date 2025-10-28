@@ -1,52 +1,67 @@
 import 'package:flutter/material.dart';
-import 'package:mimpedir/tela_home.dart';
-import 'Usuario.dart';
+import 'usuario.dart';
+import 'tela_home.dart';
+import 'banco/usuario_dao.dart';
+
 class TelaLogin extends StatelessWidget{
   TelaLogin({super.key});
 
+  //Função de capturar o texto inserido nos devidos inputs.
   final TextEditingController usuarioController = TextEditingController();
   final TextEditingController senhaController = TextEditingController();
 
-  Usuario u = Usuario(
-    codigo: 1,
-    senha: "@senhaforte123",
-    login: 'admin',
-    nome: 'Administrador'
-  );
 
   @override
-  Widget build(BuildContext context) {
+  Widget build(BuildContext context){
+    //Estrutura base de texto
     return Scaffold(
       appBar: AppBar(title: const Text("Tela de Login")),
+      //Espaço interno do corpo (se algo nao muda entao usa o const)
       body: Padding(padding: const EdgeInsets.all(24.0),
           child: Column(
-            mainAxisAlignment: MainAxisAlignment.center,
-          children: [
-            TextField(
-              decoration: const InputDecoration(labelText: 'Usuário'),
-              controller: usuarioController,
-            ),
-            const SizedBox(height: 20),
-            TextField(
-              decoration: const InputDecoration(labelText: 'Senha'),
-              obscureText: true,
-              controller: senhaController,
-            ),
-            const SizedBox(height: 40),
-            ElevatedButton(onPressed: (){
 
-              if(u.login == usuarioController.text && u.senha == senhaController.text){
-                Navigator.push(context, MaterialPageRoute(builder: (context) => TelaHome())
+            //Alinha tudo na tela
+            mainAxisAlignment: MainAxisAlignment.center,
+            children: [
+
+              //Exibe campo de inserir texto e uma decoracao pra exibir no topo "Usuario".
+              TextField(
+                decoration: const InputDecoration(labelText: 'Usuário'),
+                controller: usuarioController,
+              ),
+
+              //Adiciona um espaço; exibe outro text para senha e a função de nao ver o texto (obscureText).
+              const SizedBox(height: 20),
+              TextField(
+                decoration: const InputDecoration(labelText: 'Senha'),
+                obscureText: true,
+                controller: senhaController,
+              ),
+
+              //Add um botão, precisando de uma ação pra executar e seu texto do botão.
+              const SizedBox(height: 40),
+              ElevatedButton(onPressed: () async{
+
+                //objeto nome fixo que espera o envio dos dados dos inputs para o autenticar,
+                //ele envia ao banco que se estiver com sintaxe correta ele retorna sim, tornando succeso igual a sim
+                final sucesso = await UsuarioDAO.autenticar(usuarioController.text, senhaController.text);
+
+                if(sucesso){
+                  Navigator.push(context,
+                  MaterialPageRoute(builder: (context) => TelaHome())
                 );
-              }else {
+
+                }else {
+                //Função pra exibir uma notificação(SnackBar) na tela de login efetuado.
                 ScaffoldMessenger.of(context).showSnackBar(
-                    SnackBar(content: Text("Login ou senha inválidos!!"))
+                SnackBar(content: Text("Login ou sennha inválidos."))
                 );
-              }
-            }, child: Text("Login"))
-          ],
+                }
+              }, child: Text("Login"))
+
+            ],
+          )
       ),
-      )
     );
   }
 }
